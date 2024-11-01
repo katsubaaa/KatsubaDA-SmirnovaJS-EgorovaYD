@@ -48,7 +48,7 @@ class Quaternion:
         """Вычисляет скалярное произведение двух кватернионов."""
         return self.w * other.w + self.x * other.x + self.y * other.y + self.z * other.z
 
-           def conjugate(self):
+    def conjugate(self):
         """Вычисляет конъюгат кватерниона."""
         return Quaternion(self.w, -self.x, -self.y, -self.z)
 
