@@ -47,3 +47,25 @@ class Quaternion:
     def dot(self, other):
         """Вычисляет скалярное произведение двух кватернионов."""
         return self.w * other.w + self.x * other.x + self.y * other.y + self.z * other.z
+
+           def conjugate(self):
+        """Вычисляет конъюгат кватерниона."""
+        return Quaternion(self.w, -self.x, -self.y, -self.z)
+
+    def inverse(self):
+        """Вычисляет обратный кватернион."""
+        norm_sq = self.norm() ** 2
+        if norm_sq == 0:
+            raise ZeroDivisionError("Cannot invert zero quaternion")
+        return self.conjugate().scale(1 / norm_sq)
+
+    def __repr__(self):
+        """Строкое представление объекта класса кватернионов."""
+        return f"Quaternion({self.w}, {self.x}, {self.y}, {self.z})"
+
+    def rotate(self, vector):
+        """Поворот вектора кватернионом."""
+        q_vector = Quaternion(0, vector[0], vector[1], vector[2])
+        q_conjugate = Quaternion(self.w, -self.x, -self.y, -self.z)
+        rotated_vector = self * q_vector * q_conjugate
+        return (rotated_vector.x, rotated_vector.y, rotated_vector.z)
