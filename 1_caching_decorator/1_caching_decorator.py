@@ -16,3 +16,14 @@
               return result
           return wrapper
       return decorator
+
+  @caching_decorator(max_cache_size=3)
+  def slow_function(x):
+      print(f"Вычисляем {x}...")
+      return x * x
+
+  @caching_decorator(max_cache_size=3)
+  def slow_function2(x):
+      print(f"Вычисляем {x}...")
+      return x + 2
+    
