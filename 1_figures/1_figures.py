@@ -51,3 +51,30 @@ class Square2(Rectangle):
     @height.setter
     def height(self, value):
         self._width = self._height = value
+
+# Примеры, показывающие нарушение принципа LSP в Square
+print("Пример для Square:")
+square = Square(5)
+print("Изначальная ширина:", square.width)
+print("Изначальная высота:", square.height)
+
+square.width = 10
+print("После изменения ширины:")
+print("Ширина:", square.width)  # 10
+print("Высота:", square.height)  # 5 (нарушение)
+
+# Примеры, демонстрирующие выполнение принципа LSP в Square2
+print("\nПример для Square2:")
+square2 = Square2(5)
+print("Изначальная ширина:", square2.width)
+print("Изначальная высота:", square2.height)
+
+square2.width = 10
+print("После изменения ширины:")
+print("Ширина:", square2.width)  # 10
+print("Высота:", square2.height)  # 10 (корректное поведение)
+
+square2.height = 7
+print("После изменения высоты:")
+print("Ширина:", square2.width)  # 7
+print("Высота:", square2.height)  # 7 (корректное поведение)
