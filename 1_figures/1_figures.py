@@ -31,3 +31,23 @@ class Rectangle(Shape):
 class Square(Rectangle):
     def __init__(self, side, x=0, y=0):
         super().__init__(side, side, x, y)
+        
+class Square2(Rectangle):
+    def __init__(self, side, x=0, y=0):
+        super().__init__(side, side, x, y)
+
+    @property
+    def width(self):
+        return self._width
+
+    @width.setter
+    def width(self, value):
+        self._width = self._height = value
+
+    @property
+    def height(self):
+        return self._height
+
+    @height.setter
+    def height(self, value):
+        self._width = self._height = value
