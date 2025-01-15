@@ -44,9 +44,9 @@ CREATE TABLE price_tracking (
     id SERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL,
     item_name TEXT NOT NULL,
-    item_url TEXT NOT NULL UNIQUE,
-    current_price FLOAT NOT NULL,
-    price_history JSONB NOT NULL,
+    item_url TEXT NOT NULL,
+    current_price NUMERIC NOT NULL,
+    price_history JSONB NOT NULL DEFAULT '[]'::jsonb,
     last_checked TIMESTAMP DEFAULT NOW()
 );
 ```
