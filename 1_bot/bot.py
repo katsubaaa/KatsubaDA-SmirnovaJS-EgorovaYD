@@ -5,8 +5,8 @@ from db_manager import DatabaseManager
 from parser import Parser
 
 # Настройки
-BOT_TOKEN = ""
-DATABASE_URL = ""
+BOT_TOKEN = "7527184658:AAE1Ha6mDonhA7bPN4fPG_qSORBA_kQ8nYw"
+DATABASE_URL = "postgresql://postgres:password@localhost:5432/db_emotions"
 
 # Инициализация
 bot = Bot(token=BOT_TOKEN)
@@ -97,12 +97,22 @@ async def add_item(message: types.Message):
 # Фоновая проверка цен
 async def check_prices():
     while True:
-        items = db.get_items(None)  # Получить все товары
+        conn = db.connect()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, item_url, current_price, price_history, item_name FROM price_tracking")
+        items = cursor.fetchall()
+
         for item in items:
             new_price, _ = parser.parse_item_details(item["item_url"])
+            print(f"Проверка ID {item['id']} - новая цена: {new_price}, текущая: {item['current_price']}") #Отслеживание изменения цен
             if new_price and new_price != item["current_price"]:
+                # Обновление цены в базе данных
                 db.update_price(item["id"], new_price)
-        await asyncio.sleep(600)  # 10 минут
+                print(f"Цена для ID {item['id']} обновлена.")
+                conn.commit()
+
+        conn.close()
+        await asyncio.sleep(600)  # Проверять каждые 10 минут
 
 # Запуск бота
 if __name__ == "__main__":
