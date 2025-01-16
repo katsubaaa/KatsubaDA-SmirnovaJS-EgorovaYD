@@ -6,7 +6,7 @@ from parser import Parser
 
 # Настройки
 BOT_TOKEN = ""
-DATABASE_URL = "postgresql://postgres:password@localhost:5432/db_emotions"
+DATABASE_URL = ""
 
 # Инициализация
 bot = Bot(token=BOT_TOKEN)
