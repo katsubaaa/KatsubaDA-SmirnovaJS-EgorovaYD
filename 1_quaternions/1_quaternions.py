@@ -1,3 +1,5 @@
+import math
+
 class Quaternion:
     """Класс кватернионов."""
     def __init__(self, w, x, y, z):
@@ -69,6 +71,13 @@ class Quaternion:
         q_conjugate = Quaternion(self.w, -self.x, -self.y, -self.z)
         rotated_vector = self * q_vector * q_conjugate
         return (rotated_vector.x, rotated_vector.y, rotated_vector.z)
+
+    @staticmethod
+    def quaternion_from_axis_angle(axis, angle):
+        """Создает кватернион из оси и угла вращения."""
+        half_angle = angle / 2
+        sin_half_angle = math.sin(half_angle)
+        return Quaternion(math.cos(half_angle), axis[0] * sin_half_angle, axis[1] * sin_half_angle, axis[2] * sin_half_angle)
         
 # Параметры для кватернионов
 q1 = Quaternion(1, 2, 3, 4)
@@ -102,3 +111,8 @@ print("Представление q1:", repr(q1))  # Ожидается: Quatern
 # Проверка вращения
 vector = [1, 0, 0]
 print("Вращение вектора [1, 0, 0] с q1:", q1.rotate(vector))  # Подсчет правильного результата вращения
+
+# Проверка вращения вокруг оси по углу
+axis = [0, 0, 1]  # Вращение вокруг оси Z
+angle = math.radians(90)  # 90 градусов в радианах
+print("Кватернион вращения:", q1.quaternion_from_axis_angle(axis, angle)) # Подсчет правильного результата вращения
