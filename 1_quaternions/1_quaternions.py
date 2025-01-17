@@ -18,7 +18,7 @@ class Quaternion:
         """Вычисляет вычитание кватернионов."""
         return Quaternion(self.w - other.w,
                           self.x - other.x,
-                          sel f.y - other.y,
+                          self.y - other.y,
                           self.z - other.z)
 
     def __mul__(self, other):
